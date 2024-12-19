@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth
+    networks:
+      - jwt-local
+
+  jwt-server:
+    image: jwt-server:local
+    environment:
+      JWT_SERVER_POSTGRES_DSN: postgres://postgres:postgres@postgres:5432/auth?sslmode=disable
+      JWT_SERVER_SECRET_KEYS: test_key_id:test_secret_key, test_kid_2:test_key2
+      JWT_SERVER_SECRET_KEY_ID: test_key_id
+      JWT_SERVER_HOSTNAME: 0.0.0.0:8000
+      JWT_SERVER_REFRESH_TTL_MINUTES: 43200m
+      JWT_SERVER_ACCESS_TTL_MINUTES: 15m
+    ports:
+      - "8000:8000"
+    networks:
+      - jwt-local
+
+networks:
+  jwt-local:

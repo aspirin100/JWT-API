@@ -1,0 +1,6 @@
+http:
+  port: 8000
+
+token:
+  AuthTokenTTL: 15m
+  RefreshTokenTTL: 43200m #30 days

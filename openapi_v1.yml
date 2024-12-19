@@ -1,0 +1,153 @@
+openapi: '3.0.3'
+info:
+  title: Authenticate API
+  description: test task
+  version: "1.0"
+servers:
+  - url: http://localhost:8000
+tags:
+  - name: AuthService
+paths:
+  /users/{user_id}/tokens:
+    post:
+      operationId: CreateTokens
+      tags:
+        - AuthService
+      description: Получение новой пары токенов
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: идентификатор пользователя в формате GUID (RFC 4122)
+          example: 3966749e-45d4-460d-8e59-34235672f03b
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTokensRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTokensResponse'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Пользователь не был найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Неизвестная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: RefreshTokens
+      tags:
+        - AuthService
+      description: Получение новой пары токенов по рефреш токену
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: идентификатор пользователя в формате GUID (RFC 4122)
+          example: 3966749e-45d4-460d-8e59-34235672f03b
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - accessToken
+                - refreshToken
+              properties:
+                refreshToken:
+                  type: string
+                  description: JWT token
+                accessToken:
+                  type: string
+                  description: JWT token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTokensResponse'
+        '400':
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Пользователь не был найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Невалидный рефреш токен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Неизвестная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreateTokensRequest:
+      type: object
+      required:
+        - additionalInfo
+      properties:
+        additionalInfo:
+          type: object
+          additionalProperties:
+            type: string
+    CreateTokensResponse:
+      type: object
+      required:
+        - accessToken
+        - refreshToken
+      properties:
+        accessToken:
+          type: string
+          description: jwt token
+        refreshToken:
+          type: string
+          description: jwt token
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    
+      
+        
