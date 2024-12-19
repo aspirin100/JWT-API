@@ -35,14 +35,16 @@ API - это первый по важности продукт.
 Сгенерированный код находится в папке [internal/oas/generated](./internal/oas/generated). Там же 
 находится файл конфигурации инструмента [internal/oas/.ogen.yml](./internal/oas/.ogen.yml). 
 
-Для создания JWT токенов была использована библиотека [golang-jwt](github.com/golang-jwt/jwt/v5).
+Для создания JWT токенов была использована библиотека [golang-jwt](https://github.com/golang-jwt/jwt).
 
-При написании кода использовался линтер [golangci-lint](github.com/golangci/golangci-lint/cmd/golangci-lint)
+При написании кода использовался линтер [golangci-lint](https://github.com/golangci/golangci-lint/).
+
+Взаимодействие с базой данных происходит при помощи миграций. Библиотека для этого - [goose](https://github.com/pressly/goose/).
 
 ## Тесты
 
-Написаны интеграционные и unit-тесты. Для интеграционных тестов была использована библиотека [testcontainers-go](github.com/testcontainers/testcontainers-go).
-Unit-тесты использовали моковые данные, созданные при помощи библиотеки [gomock](go.uber.org/mock/gomock)
+Написаны интеграционные и unit-тесты. Для интеграционных тестов была использована библиотека [testcontainers-go](https://github.com/testcontainers/testcontainers-go).
+Unit-тесты использовали моковые данные, созданные при помощи библиотеки [gomock](https://github.com/uber-go/mock)
 
 ## Использование
 
