@@ -41,7 +41,8 @@ API - это первый по важности продукт.
 
 ## Тесты
 
-Написаны интеграционные и unit-тесты. Для интеграционных тестов была использована библиотека [testcontainers-go](github.com/testcontainers/testcontainers-go). Unit-тесты использовали моковые данные, созданные при помощи библиотеки [gomock](go.uber.org/mock/gomock)
+Написаны интеграционные и unit-тесты. Для интеграционных тестов была использована библиотека [testcontainers-go](github.com/testcontainers/testcontainers-go).
+Unit-тесты использовали моковые данные, созданные при помощи библиотеки [gomock](go.uber.org/mock/gomock)
 
 ## Использование
 
