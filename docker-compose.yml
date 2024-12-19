@@ -15,6 +15,9 @@ services:
 
   jwt-server:
     image: jwt-server:local
+    restart: on-failure
+    depends_on:
+      - postgres
     environment:
       JWT_SERVER_POSTGRES_DSN: postgres://postgres:postgres@postgres:5432/auth?sslmode=disable
       JWT_SERVER_SECRET_KEYS: test_key_id:test_secret_key, test_kid_2:test_key2
